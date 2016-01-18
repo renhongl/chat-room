@@ -14,7 +14,7 @@
             var name = $("#name").val();
             var password = $("#password").val();
             $.ajax({
-              url : "http://localhost:8888/queryUser?name="+ name +"&password=" + password,
+              url : window.host + "queryUser?name="+ name +"&password=" + password,
               type : "get",
               success : function(result){
                 if(result.length === 0){

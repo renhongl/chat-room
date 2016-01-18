@@ -18,7 +18,7 @@
     function refreshNumber(){
       setInterval(function(){
         $.ajax({
-          url : "http://localhost:8888/queryNumber",
+          url : window.host + "queryNumber",
           type : "get",
           success : function(result){
             $("#showName").text("CurrentPeople: " + result[0].number);

@@ -17,13 +17,16 @@
     function renderTree(){
       $("#container").load("Modules/controller/view.html",function(){
         console.log("load controller");
+        var host = location.host;
+        window.host = "http://" + host + "/";
         require(['login','clock','api','plugin','blog','bookShop'],
         function(Login,Clock,Api,Plugin,Blog,BookShop){
           //new Clock();
           //new Api();
-          //new Login();
+          new Login();
           //new Blog();
-          new BookShop();
+          //new BookShop();
+
         });
       });
     }

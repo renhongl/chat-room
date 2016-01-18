@@ -23,5 +23,6 @@ require.config({
     user : "Modules/chat/user/controller",
     blog : "Modules/blog/controller",
     bookShop : "Modules/bookShop/controller"
-  }
+  },
+  waitSeconds : 2000
 });
