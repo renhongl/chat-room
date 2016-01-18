@@ -1,0 +1,18 @@
+create database chat;
+use chat;
+create table user(
+  id int primary key auto_increment,
+  name varchar(100),
+  password varchar(100),
+  friendGroup varchar(9000)
+);
+
+insert into user(name,password,friendGroup) values("lrh","123","llh,lhj,chengxingyu,yangjinkai,lizhengling,liangrenhong");
+insert into user(name,password,friendGroup) values("hhh","123","llh,lhj,chengxingyu,yangjinkai,lizhengling,liangrenhong");
+
+create table number(
+  id int primary key auto_increment,
+  number int
+);
+
+insert into number(number) values(0);
