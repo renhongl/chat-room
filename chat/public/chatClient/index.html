@@ -8,11 +8,17 @@
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
   </head>
-  <body>
-    <div id="container">
+  <body style="margin:0px;padding:0px;font-size:12px;">
+    <div id="container" style="margin:auto;border:1px solid blue;">
 
     </div>
     <script type="text/javascript">
+      var width = window.innerWidth;
+      if(width > 768){
+        $("#container").css("width","400px");
+      }else{
+        $("#container").css("width","100%");
+      }
       $.getScript("index.js",function(){
         ChatRoom.init();
       });
