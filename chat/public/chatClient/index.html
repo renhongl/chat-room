@@ -9,7 +9,7 @@
     <script type="text/javascript" src="js/socket.io.js"></script>
   </head>
   <body style="margin:0px;padding:0px;font-size:12px;">
-    <div id="container" style="margin:auto;border:1px solid blue;">
+    <div id="container" style="margin:auto;border:1px solid gray;margin-top:10px;background-color:white;">
 
     </div>
     <script type="text/javascript">
@@ -17,7 +17,7 @@
       if(width > 768){
         $("#container").css("width","400px");
       }else{
-        $("#container").css("width","100%");
+        $("#container").css("width","400px;");
       }
       $.getScript("index.js",function(){
         ChatRoom.init();

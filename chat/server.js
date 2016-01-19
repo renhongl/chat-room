@@ -18,14 +18,16 @@
     var onlineCount = 0;
     io.on('connection',function(socket){
       console.log("a user connected.");
-      socket.on('login',function(obj){
-
+      socket.on('login',function(userId){
+        console.log(userId + ": login.");
+        onlineUser.push(userId);
+        io.sockets.emit('logSuccess',onlineUser);
       });
       socket.on('logout',function(){
 
       });
-      socket.on('message',function(){
-
+      socket.on('message',function(user,msg){
+        io.sockets.emit('redirectToUser',user,msg);
       });
 
     });
