@@ -38,6 +38,8 @@
       });
 
       socket.on('redirectToUser',function(user,msg){
+        console.log($("#msgContent").scrollTop());
+        $("#msgContent").scrollTop() += 100;
         var time = new Date();
         var hh = time.getHours();
         var mm = time.getMinutes();
