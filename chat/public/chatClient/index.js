@@ -39,7 +39,7 @@
 
       socket.on('redirectToUser',function(user,msg){
         console.log($("#msgContent").scrollTop());
-        $("#msgContent").scrollTop() += 100;
+        $("#msgContent").scrollTop($("#msgContent").scrollTop() + 1);
         var time = new Date();
         var hh = time.getHours();
         var mm = time.getMinutes();
@@ -48,11 +48,23 @@
         var message = "<div class='showMsg'>"+  msg + "&nbsp;(" + showTime + ")&nbsp;" +"</div>";
         var name = "<div class='user'>" + user + "</div>";
         if(user === window.user){
-          $("#msgContent").append("<div class='self'>" + message + name + "</div>");
+          $("#msgContent").append("<div class='self " + user + "'>" + message + name + "</div>");
+          $("." + user).css("color","green");
+          $("." + user + " .showMsg").css("background-color","green");
+          $("." + user + " .showMsg").css("border","2px solid green");
+          $("." + user + " .showMsg").css("color","white");
         }else{
           $("#msgContent").append("<div class='another " + user + "'>" + name + message + "</div>");
           if(user === "System"){
             $("." + user).css("color","red");
+            $("." + user + " .showMsg").css("background-color","red");
+            $("." + user + " .showMsg").css("color","white");
+            $("." + user + " .showMsg").css("border","2px solid red");
+          }else{
+            $("." + user).css("color","#3071A9");
+            $("." + user + " .showMsg").css("background-color","#3071A9");
+            $("." + user + " .showMsg").css("border","2px solid #3071A9");
+            $("." + user + " .showMsg").css("color","white");
           }
         }
       });
