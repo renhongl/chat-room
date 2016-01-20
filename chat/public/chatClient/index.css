@@ -3,7 +3,7 @@
 }
 
 .title{
-  border:1px solid #143d98;height:30px;background-color:#143d98;border-radius:5px 5px 0px 0px;color:white;line-height:30px;padding-left:10px;
+  border:1px solid #3071A9;height:30px;background-color:#3071A9;border-radius:5px 5px 0px 0px;color:white;line-height:30px;padding-left:10px;overflow:auto;
 }
 
 .content{
@@ -19,7 +19,11 @@
 }
 
 #sendButton{
-  width:15%;display:inline-block;float:left;margin-left:5px;height:30px;margin-top:40px;line-height:7px;
+  width:15%;display:inline-block;float:left;margin-left:5px;height:30px;margin-top:7px;line-height:7px;
+}
+
+#closeButton{
+  width:15%;display:inline-block;float:left;margin-left:5px;height:30px;margin-top:5px;line-height:7px;
 }
 
 #msgContent{
@@ -42,8 +46,12 @@
   float:left;border:0px solid red;margin-left:5px;margin-right:5px;
 }
 
+.user{
+  margin-top:2px;
+}
+
 .showMsg{
-  border:2px solid #143d98;border-radius:5px;
+  border:2px solid #3071A9;border-radius:5px;background-color:#3071A9;color:white;
 }
 
 

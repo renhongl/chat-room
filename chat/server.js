@@ -21,11 +21,17 @@
       socket.on('login',function(userId){
         console.log(userId + ": login.");
         onlineUser.push(userId);
-        io.sockets.emit('redirectToUser',"System",userId + "加入了房间。");
-        io.sockets.emit('logSuccess',onlineUser);
+        onlineCount += 1;
+        io.sockets.emit('redirectToUser',"System",userId + " come in.");
+        io.sockets.emit('logSuccess',onlineUser,onlineCount);
       });
-      socket.on('logout',function(){
-
+      socket.on('logout',function(user){
+        console.log(user + "logout");
+        onlineCount -= 1;
+        onlineUser.splice(onlineUser.indexOf(user),1);
+        console.log(onlineUser);
+        io.sockets.emit('redirectToUser',"System",user + " get out.");
+        io.sockets.emit('logSuccess',onlineUser,onlineCount);
       });
       socket.on('message',function(user,msg){
         io.sockets.emit('redirectToUser',user,msg);
