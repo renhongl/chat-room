@@ -1,27 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>ChatRoom</title>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="index.css">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
   </head>
-  <body style="margin:0px;padding:0px;font-size:12px;">
-    <div id="container" style="margin:auto;border:1px solid gray;margin-top:10px;background-color:white;">
+  <body>
+    <div class="container">
+      <div class="title">
+        logo
+      </div>
+      <div class="content">
 
+      </div>
     </div>
+
     <script type="text/javascript">
       var width = window.innerWidth;
       if(width > 768){
-        $("#container").css("width","400px");
+        $(".container").width("40%");
       }else{
-        $("#container").css("width","400px;");
+        $(".container").width("100%");
       }
       $.getScript("index.js",function(){
         ChatRoom.init();
       });
     </script>
+
   </body>
 </html>

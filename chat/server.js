@@ -21,6 +21,7 @@
       socket.on('login',function(userId){
         console.log(userId + ": login.");
         onlineUser.push(userId);
+        io.sockets.emit('redirectToUser',"System",userId + "加入了房间。");
         io.sockets.emit('logSuccess',onlineUser);
       });
       socket.on('logout',function(){
@@ -29,6 +30,8 @@
       socket.on('message',function(user,msg){
         io.sockets.emit('redirectToUser',user,msg);
       });
+
+
 
     });
   }
