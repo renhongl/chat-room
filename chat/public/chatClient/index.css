@@ -1,14 +1,14 @@
 .container{
-  border:0px solid gray;margin-top:0px;padding:5px;
+  border:0px solid gray;margin-top:0px;padding:0px;
 }
 
 .title{
-  border:1px solid #3071A9;height:30px;background-color:#3071A9;border-radius:5px 5px 0px 0px;color:white;line-height:30px;padding-left:10px;overflow:hidden;
+  border:1px solid #3071A9;height:30px;background-color:#3071A9;border-radius:0px 0px 0px 0px;color:white;line-height:30px;padding-left:10px;overflow:hidden;
   box-shadow:4px 4px 4px rgba(0,0,0,0.5);
 }
 
 .content{
-  height:477px;border:2px solid #3071A9;border-radius:0px 0px 5px 5px;box-shadow:4px 4px 4px rgba(0,0,0,0.5);
+  height:477px;border:2px solid #3071A9;border-radius:0px 0px 0px 0px;box-shadow:4px 4px 4px rgba(0,0,0,0.5);
 }
 
 .loginPage{
@@ -59,7 +59,10 @@
   border:2px solid #3071A9;border-radius:5px;
 }
 
-
+.title{
+   -webkit-user-select:none;
+   -webkit-app-region:drag;
+}
 
 
 

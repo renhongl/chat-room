@@ -22,7 +22,7 @@
         console.log(userId + ": login.");
         onlineUser.push(userId);
         onlineCount += 1;
-        io.sockets.emit('redirectToUser',"System",userId + " come in.");
+        io.sockets.emit('redirectToUser',"系统消息",userId + " 加入房间");
         io.sockets.emit('logSuccess',onlineUser,onlineCount);
       });
       socket.on('logout',function(user){
@@ -30,7 +30,7 @@
         onlineCount -= 1;
         onlineUser.splice(onlineUser.indexOf(user),1);
         console.log(onlineUser);
-        io.sockets.emit('redirectToUser',"System",user + " get out.");
+        io.sockets.emit('redirectToUser',"系统消息",user + " 退出房间");
         io.sockets.emit('logSuccess',onlineUser,onlineCount);
       });
       socket.on('message',function(user,msg){
