@@ -48,13 +48,13 @@
       var message = "";
       var name = "";
       if(user === window.user){
-        message = "<div class='selfPop'></div><div class='showMsg selfMsg'>"+  msg + "&nbsp;&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+        message = "<div class='selfPop'></div><div class='showMsg selfMsg'>"+  msg + " (" + showTime + ")" +"</div>";
         name = "<div class='user selfName'>" + user + "</div>";
       }else if(user === "系统消息"){
-        message = "<div class='sysPop'></div><div class='showMsg'>"+  msg + "&nbsp;&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+        message = "<div class='sysPop'></div><div class='showMsg'>"+  msg + " (" + showTime + ")" +"</div>";
         name = "<div class='user'>" + user + "</div>";
       }else{
-        message = "<div class='anotherPop'></div><div class='showMsg'>"+  msg + "&nbsp;&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+        message = "<div class='anotherPop'></div><div class='showMsg'>"+  msg + " (" + showTime + ")" +"</div>";
         name = "<div class='user'>" + user + "</div>";
       }
       if(user === window.user){
