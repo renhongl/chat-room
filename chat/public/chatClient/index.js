@@ -45,7 +45,15 @@
 
     socket.on('redirectToUser',function(user,msg){
       var showTime = getTime();
-      var message = "<div class='showMsg'>"+  msg + "&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+      var message = "";
+      if(user === window.user){
+        message = "<div class='showMsg'>"+  msg + "&nbsp;(" + showTime + ")&nbsp;" +"</div><div class='selfPop'></div>";
+      }else if(user === "系统消息"){
+        message = "<div class='sysPop'></div><div class='showMsg'>"+  msg + "&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+      }else{
+        message = "<div class='anotherPop'></div><div class='showMsg'>"+  msg + "&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+      }
+
       var name = "<div class='user'>" + user + "</div>";
       if(user === window.user){
         selfStyle(user,name,message);
@@ -56,8 +64,10 @@
         playAudio();
         anotherStyle(user,name,message);
       }
-      $("#msgContent").animate({scrollTop: $('#msgContent').offset().top + offset}, 1000);
-      offset = offset + 1000;
+      if($("#msgContent").length !== 0){
+        $("#msgContent").animate({scrollTop: $('#msgContent').offset().top + offset}, 1000);
+        offset = offset + 1000;
+      }
     });
   }
 
