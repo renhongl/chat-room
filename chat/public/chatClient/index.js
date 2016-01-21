@@ -111,7 +111,7 @@
     document.onkeypress = function(e){
       if(e.keyCode === 13){
         var msg = $("#sendInput").val().trim();
-        if(msg === "" || msg.length > 100){
+        if(msg === "" || msg.length > 1000){
           console.log("no words or too long");
           return;
         }
