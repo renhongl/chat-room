@@ -3,6 +3,7 @@
   var socket = io.connect();
   var touchThread = null;
   var clickClose = false;
+  var offset = 1000;
   this.ChatRoom = {};
 
   ChatRoom.init = function(){
@@ -55,6 +56,8 @@
         playAudio();
         anotherStyle(user,name,message);
       }
+      $("#msgContent").animate({scrollTop: $('#msgContent').offset().top + offset}, 1000);
+      offset = offset + 1000;
     });
   }
 
@@ -101,7 +104,6 @@
           return;
         }
         $("#sendInput").val("");
-        console.log($("#sendInput").val());
         socket.emit('message',window.user,msg);
       }
     };
@@ -134,7 +136,14 @@
     var hh = time.getHours();
     var mm = time.getMinutes();
     var ss = time.getSeconds();
-    return hh + ":" + mm + ":" + ss;
+    return formatTime(hh) + ":" + formatTime(mm) + ":" + formatTime(ss);
+  }
+
+  function formatTime(time){
+    if(time < 10){
+      time = "0" + time;
+    }
+    return time;
   }
 
   function playAudio(){

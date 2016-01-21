@@ -1,0 +1,25 @@
+{
+    "name": "nw-demo",
+    "main": "http://localhost:8888/chatClient",
+    "nodejs":true,
+
+    "window": {
+
+        "title": "ChatRoom",
+        "toolbar": false,
+        "icon" : "",
+        "width": 400,
+        "height": 507,
+        "resizable":false,
+        "show_in_taskbar":true,
+        "frame":false,
+        "kiosk":false
+    },
+
+    "webkit":{
+
+        "plugin":true
+
+    }
+
+}
