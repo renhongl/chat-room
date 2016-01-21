@@ -14,7 +14,7 @@
   };
 
   function selfStyle(user,name,message){
-    $("#msgContent").append("<div class='self " + user + "'>" + message + name + "</div>");
+    $("#msgContent").append("<div class='self " + user + "'>" + name + message + "</div>");
     $("." + user).css("color","#4bb349");
     $("." + user + " .showMsg").css("background-color","#4bb349");
     $("." + user + " .showMsg").css("border","2px solid #4bb349");
@@ -46,15 +46,17 @@
     socket.on('redirectToUser',function(user,msg){
       var showTime = getTime();
       var message = "";
+      var name = "";
       if(user === window.user){
-        message = "<div class='showMsg'>"+  msg + "&nbsp;(" + showTime + ")&nbsp;" +"</div><div class='selfPop'></div>";
+        message = "<div class='selfPop'></div><div class='showMsg selfMsg'>"+  msg + "&nbsp;&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+        name = "<div class='user selfName'>" + user + "</div>";
       }else if(user === "系统消息"){
-        message = "<div class='sysPop'></div><div class='showMsg'>"+  msg + "&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+        message = "<div class='sysPop'></div><div class='showMsg'>"+  msg + "&nbsp;&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+        name = "<div class='user'>" + user + "</div>";
       }else{
-        message = "<div class='anotherPop'></div><div class='showMsg'>"+  msg + "&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+        message = "<div class='anotherPop'></div><div class='showMsg'>"+  msg + "&nbsp;&nbsp;(" + showTime + ")&nbsp;" +"</div>";
+        name = "<div class='user'>" + user + "</div>";
       }
-
-      var name = "<div class='user'>" + user + "</div>";
       if(user === window.user){
         selfStyle(user,name,message);
       }else if(user === "系统消息"){
@@ -92,8 +94,8 @@
   function roomAddEvent(){
     $("#sendButton").on('click',function(){
       var msg = $("#sendInput").val().trim();
-      if(msg === ""){
-        console.log("no words");
+      if(msg === "" || msg.length > 1000){
+        console.log("no words or too long");
         return;
       }
       $("#sendInput").val("");
@@ -109,8 +111,8 @@
     document.onkeypress = function(e){
       if(e.keyCode === 13){
         var msg = $("#sendInput").val().trim();
-        if(msg === ""){
-          console.log("no words");
+        if(msg === "" || msg.length > 100){
+          console.log("no words or too long");
           return;
         }
         $("#sendInput").val("");

@@ -1,3 +1,4 @@
+
 .container{
   border:0px solid gray;margin-top:0px;padding:0px;
 }
@@ -32,7 +33,7 @@
 }
 
 #msgContent{
-  width:100%;height:400px;overflow:auto;margin:auto;border:0px solid gray;line-height:400px;
+  width:100%;height:400px;overflow:auto;margin:auto;border:0px solid gray;
 }
 
 .operate{
@@ -40,19 +41,29 @@
 }
 
 .another{
-  height:20px;float:left;border:0px solid gray;clear:both;line-height:20px;margin-top:10px;font-size:10px;
+  height:auto;float:left;border:0px solid gray;clear:both;line-height:20px;margin-top:10px;font-size:10px;padding-left:7px;
+  max-width:80%;
 }
 
 .self{
-  height:20px;float:right;border:0px solid gray;clear:both;line-height:20px;margin-top:10px;font-size:10px;
+  height:auto;float:right;border:0px solid gray;clear:both;line-height:20px;margin-top:10px;font-size:10px;padding-right:7px;
+  max-width:80%;
 }
 
 .showMsg,.user{
-  float:left;border:0px solid red;margin-left:0px;margin-right:0px;margin-bottom:5px;padding-left:5px; 
+  float:left;border:0px solid red;margin:0px;padding:0px;margin-bottom:10px;
+}
+
+.selfMsg,.selfName{
+  float:right;
+}
+
+.selfMsg{
+  max-width:80%;height:auto;
 }
 
 .selfPop{
-  margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white white white #4bb349;float:left;
+  margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white white white #4bb349;float:right;
 }
 
 .sysPop{
@@ -64,11 +75,11 @@
 }
 
 .user{
-  margin-top:2px;font-weight:bold;
+  margin-top:2px;font-weight:bold;border:0px solid red;
 }
 
 .showMsg{
-  border:2px solid #3071A9;border-radius:5px;
+  border:2px solid #3071A9;border-radius:5px;padding-left:7px;padding-right:7px;max-width:80%;
 }
 
 .title{
@@ -76,9 +87,6 @@
    -webkit-app-region:drag;
 }
 
-#msg_end{
-  height:0;
-}
 
 
 
