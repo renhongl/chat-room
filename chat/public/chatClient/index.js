@@ -40,7 +40,8 @@
   function addSocketEvent(){
     socket.on('logSuccess',function(onlineUser,onlineCount){
       var str = "在线 : ";
-      $(".title").text(str + onlineUser);
+      var temp = onlineUser.join().replace(/,/g," & ");
+      $("#test").text(temp);
     });
 
     socket.on('redirectToUser',function(user,msg){
@@ -51,10 +52,10 @@
         message = "<div class='selfPop'></div><div class='showMsg selfMsg'>"+  msg + " (" + showTime + ")" +"</div>";
         name = "<div class='user selfName'>" + user + "</div>";
       }else if(user === "系统消息"){
-        message = "<div class='sysPop'></div><div class='showMsg'>"+  msg + " (" + showTime + ")" +"</div>";
+        message = "<div class='sysPop'></div><div class='showMsg otherMsg'>"+  msg + " (" + showTime + ")" +"</div>";
         name = "<div class='user'>" + user + "</div>";
       }else{
-        message = "<div class='anotherPop'></div><div class='showMsg'>"+  msg + " (" + showTime + ")" +"</div>";
+        message = "<div class='anotherPop'></div><div class='showMsg otherMsg'>"+  msg + " (" + showTime + ")" +"</div>";
         name = "<div class='user'>" + user + "</div>";
       }
       if(user === window.user){
@@ -110,6 +111,7 @@
 
     document.onkeypress = function(e){
       if(e.keyCode === 13){
+        e.preventDefault();
         var msg = $("#sendInput").val().trim();
         if(msg === "" || msg.length > 1000){
           console.log("no words or too long");
@@ -125,6 +127,8 @@
         socket.emit('logout',window.user);
       }
     };
+
+    $(".container").css("background-image","url(images/3.jpeg)");
 
   }
 

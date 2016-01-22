@@ -5,7 +5,15 @@
 
 .title{
   border:1px solid #3071A9;height:30px;background-color:#3071A9;border-radius:0px 0px 0px 0px;color:white;line-height:30px;padding-left:10px;overflow:hidden;
-  box-shadow:4px 4px 4px rgba(0,0,0,0.5);
+  box-shadow:4px 4px 4px rgba(0,0,0,0.5);position:relative;
+}
+
+#userList{
+  font-size:12px;border:0px solid red;height:25px;width:85%;position:absolute;right:0px;float:right;
+}
+
+#appName{
+  float:left;
 }
 
 .content{
@@ -17,7 +25,7 @@
 }
 
 #sendInput{
-  width:100%;display:inline-block;float:left;margin-left:0px;position:absolute;z-index:1;border:none;
+  width:100%;display:inline-block;float:left;margin-left:0px;position:absolute;z-index:1;border:none;background-color:#0e9cd1;color:white;
 }
 
 #sendButton,#closeButton{
@@ -59,19 +67,44 @@
 }
 
 .selfMsg{
-  max-width:80%;height:auto;
+  max-width:80%;height:auto;box-shadow:-4px 4px 4px rgba(0,0,0,0.5);
+}
+
+.otherMsg{
+  max-width:80%;height:auto;box-shadow:4px 4px 4px rgba(0,0,0,0.5);
 }
 
 .selfPop{
-  margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white white white #4bb349;float:right;
+  /*margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white white white #4bb349;float:right;*/
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-left: 10px solid #4bb349;
+    border-bottom: 5px solid transparent;
+    float:right;
+    margin-top:4px;
 }
 
 .sysPop{
-  margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white #e9578c white white ;float:left;
+  /*margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white #e9578c white white ;float:left;*/
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-right: 10px solid #e9578c;
+  border-bottom: 5px solid transparent;
+  float:left;
+  margin-top:4px;
 }
 
 .anotherPop{
-  margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white #3071A9 white white;float:left;
+  /*margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white #3071A9 white white;float:left;*/
+  width: 0;
+  height: 0;
+  border-top: 5px solid transparent;
+  border-right: 10px solid #3071A9;
+  border-bottom: 5px solid transparent;
+  float:left;
+  margin-top:4px;
 }
 
 .user{
@@ -87,7 +120,9 @@
    -webkit-app-region:drag;
 }
 
-
+#test{
+  color:#eb6c96;font-weight:bold;
+}
 
 
 
