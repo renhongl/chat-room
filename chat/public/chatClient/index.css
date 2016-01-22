@@ -17,7 +17,7 @@
 }
 
 .content{
-  height:477px;border:2px solid #3071A9;border-radius:0px 0px 0px 0px;box-shadow:4px 4px 4px rgba(0,0,0,0.5);
+  height:476px;border:2px solid #3071A9;border-radius:0px 0px 0px 0px;box-shadow:4px 4px 4px rgba(0,0,0,0.5);
 }
 
 .loginPage{
@@ -41,11 +41,15 @@
 }
 
 #msgContent{
-  width:100%;height:400px;overflow:auto;margin:auto;border:0px solid gray;
+  width:100%;height:400px;overflow:auto;margin:auto;border:0px solid gray;border-bottom:0px solid red;
+}
+
+::-webkit-scrollbar {
+  width:2px;background-color:#3071A9;
 }
 
 .operate{
-  border-top:1px solid #143d98;padding-top:0px;position:relative;
+  border-top:0px solid #143d98;padding-top:0px;position:relative;
 }
 
 .another{
