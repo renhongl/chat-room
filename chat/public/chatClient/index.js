@@ -39,8 +39,7 @@
 
   function addSocketEvent(){
     socket.on('logSuccess',function(onlineUser,onlineCount){
-      var str = "在线 : ";
-      var temp = onlineUser.join().replace(/,/g," & ");
+      var temp = onlineUser.join().replace(/,/g," @ ");
       $("#test").text(temp);
     });
 

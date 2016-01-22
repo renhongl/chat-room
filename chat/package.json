@@ -9,7 +9,7 @@
         "toolbar": false,
         "icon" : "",
         "width": 400,
-        "height": 507,
+        "height": 506,
         "resizable":false,
         "show_in_taskbar":true,
         "frame":false,
