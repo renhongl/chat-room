@@ -3,6 +3,7 @@
   var express = require('express');
   var app = express();
   var server;
+  var numberGroup = [];
 
   initServer();
 
@@ -18,21 +19,31 @@
     var onlineCount = 0;
     io.on('connection',function(socket){
       console.log("a user connected.");
+      socket.emit('open');
+
+      socket.on('getUser',function(){
+        socket.emit('gotUser',onlineUser);
+      });
+
+      socket.on('refresh',function(){
+        socket.emit('returnUser',onlineUser);
+      });
+
       socket.on('login',function(userId){
         console.log(userId + ": login.");
         onlineUser.push(userId);
         onlineCount += 1;
         io.sockets.emit('redirectToUser',"系统消息",userId + " 加入房间");
-        io.sockets.emit('logSuccess',onlineUser,onlineCount);
       });
+
       socket.on('logout',function(user){
         console.log(user + "logout");
         onlineCount -= 1;
         onlineUser.splice(onlineUser.indexOf(user),1);
         console.log(onlineUser);
         io.sockets.emit('redirectToUser',"系统消息",user + " 退出房间");
-        io.sockets.emit('logSuccess',onlineUser,onlineCount);
       });
+
       socket.on('message',function(user,msg){
         io.sockets.emit('redirectToUser',user,msg);
       });

@@ -2,7 +2,7 @@
 
 }
 .container{
-  border:0px solid gray;margin-top:0px;padding:0px;
+  border:0px solid gray;margin-top:0px;padding:0px;position:relative;
 }
 
 .title{
@@ -27,8 +27,13 @@
 }
 
 #sendInput{
+  width:100%;display:inline-block;float:left;margin-left:0px;position:absolute;z-index:3;border:none;background-color:#3071A9;color:white;
+  resize:none;height:66px;
+}
+
+#inputDiv{
   width:100%;display:inline-block;float:left;margin-left:0px;position:absolute;z-index:1;border:none;background-color:#3071A9;color:white;
-  resize:none;height:72px;
+  resize:none;height:92px;
 }
 
 #sendInput:focus {
@@ -39,20 +44,40 @@ button:{
   outline:1px solid gray;
 }
 
-#sendButton,#closeButton{
+#sendButton,#closeButton,#imageButton{
   position:absolute;z-index:2;
 }
 
 #sendButton{
-  width:60px;display:inline-block;right:1px;top:46px;margin-left:5px;height:25px;line-height:3px;
+  width:60px;display:inline-block;right:1px;top:67px;margin-left:5px;height:25px;line-height:3px;
 }
 
 #closeButton{
-  width:60px;display:inline-block;right:65px;top:46px;margin-left:5px;height:25px;line-height:3px;
+  width:60px;display:inline-block;right:65px;top:67px;margin-left:5px;height:25px;line-height:3px;
+}
+
+#imageButton{
+  width:60px;display:inline-block;right:129px;top:67px;margin-left:5px;height:25px;line-height:3px;
+}
+
+#imageStore{
+  max-width:100%;height:auto;border:1px solid white;position:absolute;z-index:100;left:2px;bottom:75px;background-color:white;border-radius:5px;display:none;
+}
+
+.faceImage{
+  display:inline-block;float:left;margin-left:5px;margin-top:5px;
+}
+
+.faceImage:hover{
+  cursor:pointer;border:1px solid #3071A9;
+}
+
+.sendImage{
+  max-width:200px;max-height:200px;
 }
 
 #msgContent{
-  width:100%;height:400px;overflow:auto;margin:auto;border:0px solid gray;border-bottom:0px solid red;
+  width:100%;height:380px;overflow:auto;margin:auto;border:1px solid gray;border-bottom:0px solid red;
   -webkit-scrollbar-arrow-color: #f4ae21;
 }
 
@@ -153,7 +178,9 @@ button:{
   color:#eb6c96;font-weight:bold;
 }
 
-
+#alertMsg{
+  position:absolute;z-index:10;height:30px;line-height:0px;right:3px;top:30px;
+}
 
 
 
