@@ -8,6 +8,7 @@
 
   ChatRoom.init = function(){
     $(".content").load("login.html",function(){
+      $("button").focus(function(){this.blur()});
       loginAddEvent();
       addSocketEvent();
     });
@@ -127,20 +128,21 @@
       }
     };
 
-    $(".container").css("background-image","url(images/3.jpeg)");
-
+    $(".container").css("background-image","url(images/22.jpg)");
+    $("button").focus(function(){this.blur()});
   }
 
   function listenSendText(){
     setInterval(function(){
       var text = $("#sendInput").val().trim();
       if(text === ""){
+        $("#sendButton").removeClass("canSend");
         $("#sendButton").css("background-color","white");
         $("#sendButton").css("border-color","gray");
         $("#sendButton").css("color","gray");
       }else{
-        $("#sendButton").css("background-color","#3071A9");
-        $("#sendButton").css("border-color","#3071A9");
+        $("#sendButton").css("background-color","#428BCA");
+        $("#sendButton").css("border-color","#428BCA");
         $("#sendButton").css("color","white");
       }
     },100);
