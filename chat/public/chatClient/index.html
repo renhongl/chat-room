@@ -4,15 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>ChatRoom</title>
-    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/css/bootstrap.min.css">
     <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="css/colpick.css">
     <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript" src="js/bootstrap.js"></script>
+    <script type="text/javascript" src="js/colpick.js"></script>
     <script type="text/javascript" src="js/socket.io.js"></script>
   </head>
   <body id="body">
     <div class="container">
-      <div id="imageStore"></div>
+      <div id="fontSetting" class="store">1</div>
+      <div id="imageStore" class="store"></div>
+      <div id="musiceSetting" class="store">3</div>
+      <div id="settings">4</div>
       <div class="title">
         <div id="appName">聊天室</div>
         <div id="userList"><marquee id="test" scrollamount="2"></marquee></div>

@@ -102,7 +102,6 @@
       if($("#msgContent").length !== 0){
         $("#msgContent").animate({scrollTop: $('#msgContent').offset().top + offset}, 1000);
         offset = offset + 1000;
-
       }
     });
   }
@@ -205,28 +204,135 @@
     };
 
     $("#imageButton").on('click',function(){
-
       $("#imageStore").fadeToggle();
+      $("#fontSetting").fadeOut();
+      $("#musiceSetting").fadeOut();
+      $("#settings").fadeOut();
     });
 
-    $(".container").css("background-image","url(images/22.jpg)");
+    $("#fontButton").on('click',function(){
+      $("#imageStore").fadeOut();
+      $("#fontSetting").fadeToggle();
+      $("#musiceSetting").fadeOut();
+      $("#settings").fadeOut();
+    });
+
+    $("#musicButton").on('click',function(){
+      $("#imageStore").fadeOut();
+      $("#fontSetting").fadeOut();
+      $("#musiceSetting").fadeToggle();
+      $("#settings").fadeOut();
+    });
+
+    $("#settingButton").on('click',function(){
+      $("#imageStore").fadeOut();
+      $("#fontSetting").fadeOut();
+      $("#musiceSetting").fadeOut();
+      $("#settings").fadeToggle();
+    });
+
+    $("#sendInput").on('click',function(){
+      $("#imageStore").fadeOut();
+      $("#fontSetting").fadeOut();
+      $("#musiceSetting").fadeOut();
+      $("#settings").fadeOut();
+    });
+
+    $("#fontSetting").load("fontList.html",function(){
+      var fontThread = null;
+      var familyThread = null;
+      var value = 0;
+      var family = "";
+      $("#fontList a").on('click',function(){
+        if(fontThread !== null){
+          clearInterval(fontThread);
+        }
+        value = $(this).text();
+        $("#listButton").html(value + '&nbsp;<span class="caret"></span>');
+        setInterval(function(){
+          $(".selfMsg").css("font-size",value + "px");
+        },100);
+      });
+      $("#fontFamily a").on('click',function(){
+        if(familyThread !== null){
+          clearInterval(familyThread);
+        }
+        family = $(this).text();
+        $("#familyButton").html(family + '&nbsp;<span class="caret"></span>');
+        setInterval(function(){
+          $(".selfMsg").css("font-family",family);
+        },100);
+      });
+      $("button").focus(function(){this.blur()});
+    });
+
+    $("#settings").load("setting.html",function(){
+      for( var i = 1; i < 14; i++){
+        $("#backStore").append('<img width="50" height="50" src="images/' + i + '.jpg">');
+      }
+      $("#backStore img").css("margin","5px");
+      $("#backStore img").on('click',function(){
+        var src = $(this).attr("src");
+        $(".container").css("background-image","url(" + src + ")");
+      });
+      $('#backPicker').colpick({
+          flat:true,
+          layout:'hex',
+          submit:0
+      });
+      $("#submitTheme").on('click',function(){
+        var color = $(".colpick_hex_field input").val();
+        console.log(color);
+        $(".title").css("background-color","#" + color);
+        $(".title").css("border","1px solid #" + color);
+        $("#inputDiv").css("background-color","#" + color);
+        $("#sendInput").css("background-color","#" + color);
+        $(".content").css("border","1px solid #" + color);
+        $("#settings").fadeOut();
+      });
+      $("#cancelTheme").on('click',function(){
+        $("#settings").fadeOut();
+      });
+      $("button").focus(function(){this.blur()});
+    });
+
+    $("#musiceSetting").load("musicList.html",function(){
+      for( var i = 1; i < 3; i++){
+        $("#musicList").append('<span class="musicList">' + i + '</span>');
+      }
+      $(".musicList").on('click',function(){
+        var myAudio = document.getElementById("musicAudio");
+        var src = $(this).text();
+        $(myAudio).attr("src","playMusic/" + src + ".mp3");
+        myAudio.play();
+      });
+      $("#pausePlay").on('click',function(){
+        var myAudio = document.getElementById("musicAudio");
+        myAudio.pause();
+      });
+      $("button").focus(function(){this.blur()});
+    });
+
+    $(".container").css("background-image","url(images/13.jpg)");
     $("button").focus(function(){this.blur()});
   }
 
   function listenSendText(){
-    setInterval(function(){
-      var text = $("#sendInput").val().trim();
-      if(text === ""){
-        $("#sendButton").removeClass("canSend");
-        $("#sendButton").css("background-color","white");
-        $("#sendButton").css("border-color","gray");
-        $("#sendButton").css("color","gray");
-      }else{
-        $("#sendButton").css("background-color","#428BCA");
-        $("#sendButton").css("border-color","#428BCA");
-        $("#sendButton").css("color","white");
-      }
-    },100);
+    if($("#sendInput").length !== 0){
+      setInterval(function(){
+        var text = $("#sendInput").val().trim();
+        if(text === ""){
+          $("#sendButton").removeClass("canSend");
+          $("#sendButton").css("background-color","white");
+          $("#sendButton").css("border-color","gray");
+          $("#sendButton").css("color","gray");
+        }else{
+          $("#sendButton").css("background-color","#428BCA");
+          $("#sendButton").css("border-color","#428BCA");
+          $("#sendButton").css("color","white");
+        }
+      },100);
+    }
   }
 
   function getTime(){
