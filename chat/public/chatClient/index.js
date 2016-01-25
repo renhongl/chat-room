@@ -23,6 +23,13 @@
     $("#login").on('click',function(){
       socket.emit('getUser');
     });
+
+    document.onkeypress = function(e){
+      if(e.keyCode === 13){
+        e.preventDefault();
+        socket.emit('getUser');
+      }
+    };
   }
 
   function addSocketEvent(){
@@ -52,7 +59,7 @@
         if(!isHave){
           logSuccess(userId);
         }else{
-          showAlert("用户名已存在。");
+          showAlert("已有人使用此名字，请换一个。");
         }
       }
     });
@@ -103,7 +110,7 @@
     }else{
       createTimes++;
       if(createTimes > 50){
-        showAlert("由于人数过多，系统无法自动创建用户名。");
+        showAlert("由于人数过多，系统无法自动创建用户名。请自己输入名字。");
         return;
       }
       console.log("have:....",autoId);
@@ -236,16 +243,21 @@
   }
 
   function mobileAutoExit(){
-    var width = window.innerWidth;
-    var thread = null;
-    thread = setTimeout(function(){
-      alert(1);
-    },10000);
     if(width < 768){
+      var width = window.innerWidth;
+      var thread = null;
+
+      thread = setTimeout(function(){
+        console.log("由于你长时间无操作，已退出房间。");
+        if($("#closeButton").length !== 0){
+          $("#closeButton").click();
+        }
+      },6000 * 5);
+
       $(window).on("touchend",function(){
         clearTimeout(thread);
         thread = setTimeout(function(){
-          alert("由于你长时间无操作，已退出房间。");
+          console.log("由于你长时间无操作，已退出房间。");
           if($("#closeButton").length !== 0){
             $("#closeButton").click();
           }
@@ -298,14 +310,15 @@
         },100);
       });
 
-      $("#colorButton").on('click',function(){
-        $("#fontColPicker").fadeToggle();
-      });
-
       $("#fontColPicker").colpick({
           flat:true,
           layout:'hex',
-          submit:0
+          submit:1,
+          color:'edf2f5'
+      });
+
+      $("#fontColPicker .colpick_submit").on('click',function(){
+        $("#fontSetting").fadeOut();
       });
 
       setInterval(function(){
@@ -353,7 +366,8 @@
       $('#backPicker').colpick({
           flat:true,
           layout:'hex',
-          submit:0
+          submit:0,
+          color:'3071A9'
       });
 
       $("#submitTheme").on('click',function(){
