@@ -85,7 +85,7 @@ button:{
 }
 
 #settings{
-  max-width:99%;height:auto;border:1px solid white;position:absolute;z-index:100;left:2px;bottom:2px;background-color:white;border-radius:5px;display:none;
+  max-width:99%;height:99%;border:1px solid white;position:absolute;z-index:100;left:2px;bottom:2px;background-color:white;border-radius:5px;display:none;
 }
 
 .faceImage{
@@ -206,20 +206,24 @@ button:{
   position:absolute;z-index:10;height:30px;line-height:0px;right:3px;top:30px;
 }
 
-#fontList,#listName,#fontFamily,#listName2{
+#fontList,#listName,#fontFamily,#listName2,#listName3{
   float:left;margin-left:5px;
 }
 
-#listName2{
+#listName2,#listName3{
   clear:both;
 }
 
-#fontFamily,#listName2{
+#fontFamily,#listName2,#listName3{
   margin-top:10px;
 }
 
-#listButton,#familyButton{
+#listButton,#familyButton,#colorButton{
   height:20px;line-height:5px;
+}
+
+#fontColPicker{
+  width:206px;height:200px;position:absolute;z-index:30;border:0px solid red;top:0px;left:0px;
 }
 
 #backStore img:hover{
@@ -227,11 +231,23 @@ button:{
 }
 
 #backPicker{
-  position:relative;left:0;top:0;border:0px solid red;width:206px;
+  border:0px solid red;width:206px;float:left;margin-top:10px;margin-left:10px;
 }
 
-#submitTheme,#pausePlay,#cancelTheme{
+#pausePlay{
   height:25px;line-height:0px;margin:10px;
+}
+
+#submitTheme,#cancelTheme{
+  float:right;margin-top:185px;height:25px;line-height:0px;
+}
+
+#cancelTheme{
+  margin-right:15px;
+}
+
+#submitTheme{
+  margin-right:10px;
 }
 
 .musicList{
@@ -242,12 +258,16 @@ button:{
   border:1px solid #3071A9;
 }
 
-#settingTitle{
-  width:99%;text-align:center;margin-top:5px;color:#3071A9;margin-bottom:8px;
+.settingTitle{
+  width:99%;text-align:center;margin-top:15px;color:#3071A9;margin-bottom:8px;
 }
 
-#fontDiv{
-  height:200px;width:200px;padding:10px;
+#hr{
+  padding:0;margin:0;
+}
+
+#fontSetting{
+  height:355px;width:100%;padding:10px;
 }
 
 

@@ -13,7 +13,7 @@
 
   ChatRoom.init = function(){
     $(".content").load("login.html",function(){
-      $("button").focus(function(){this.blur()});
+      $("button").focus(function(){this.blur();});
       loginAddEvent();
       addSocketEvent();
     });
@@ -250,7 +250,8 @@
         value = $(this).text();
         $("#listButton").html(value + '&nbsp;<span class="caret"></span>');
         setInterval(function(){
-          $(".selfMsg").css("font-size",value + "px");
+          $(".showMsg").css("font-size",value + "px");
+          $(".user").css("font-size",value + "px");
         },100);
       });
       $("#fontFamily a").on('click',function(){
@@ -260,10 +261,23 @@
         family = $(this).text();
         $("#familyButton").html(family + '&nbsp;<span class="caret"></span>');
         setInterval(function(){
-          $(".selfMsg").css("font-family",family);
+          $(".showMsg").css("font-family",family);
+          $(".user").css("font-family",family);
         },100);
       });
-      $("button").focus(function(){this.blur()});
+      $("#colorButton").on('click',function(){
+        $("#fontColPicker").fadeToggle();
+      });
+      $("#fontColPicker").colpick({
+          flat:true,
+          layout:'hex',
+          submit:0
+      });
+      setInterval(function(){
+        var color = $("#fontColPicker .colpick_hex_field input").val();
+        $(".showMsg").css("color","#" + color);
+      },10);
+      $("button").focus(function(){this.blur();});
     });
 
     $("#settings").load("setting.html",function(){
@@ -281,7 +295,7 @@
           submit:0
       });
       $("#submitTheme").on('click',function(){
-        var color = $(".colpick_hex_field input").val();
+        var color = $("#backPicker .colpick_hex_field input").val();
         console.log(color);
         $(".title").css("background-color","#" + color);
         $(".title").css("border","1px solid #" + color);
@@ -293,16 +307,16 @@
       $("#cancelTheme").on('click',function(){
         $("#settings").fadeOut();
       });
-      $("button").focus(function(){this.blur()});
+      $("button").focus(function(){this.blur();});
     });
 
     $("#musiceSetting").load("musicList.html",function(){
       for( var i = 1; i < 3; i++){
-        $("#musicList").append('<span class="musicList">' + i + '</span>');
+        $("#musicList").append('<span data="' + i + '" class="musicList">歌曲'+ i +'</span>');
       }
       $(".musicList").on('click',function(){
         var myAudio = document.getElementById("musicAudio");
-        var src = $(this).text();
+        var src = $(this).attr("data");
         $(myAudio).attr("src","playMusic/" + src + ".mp3");
         myAudio.play();
       });
@@ -310,11 +324,11 @@
         var myAudio = document.getElementById("musicAudio");
         myAudio.pause();
       });
-      $("button").focus(function(){this.blur()});
+      $("button").focus(function(){this.blur();});
     });
 
     $(".container").css("background-image","url(images/13.jpg)");
-    $("button").focus(function(){this.blur()});
+    $("button").focus(function(){this.blur();});
   }
 
   function listenSendText(){
