@@ -19,32 +19,13 @@
     });
   };
 
-  function selfStyle(user,name,message){
-    $("#msgContent").append("<div class='self " + user + "'>" + name + message + "</div>");
-    $("." + user).css("color","#4bb349");
-    $("." + user + " .showMsg").css("background-color","#4bb349");
-    $("." + user + " .showMsg").css("border","2px solid #4bb349");
-    $("." + user + " .showMsg").css("color","white");
-  }
-
-  function systemStyle(user,name,message){
-    $("#msgContent").append("<div class='another " + user + "'>" + name + message + "</div>");
-    $("." + user).css("color","#e9578c");
-    $("." + user + " .showMsg").css("background-color","#e9578c");
-    $("." + user + " .showMsg").css("color","white");
-    $("." + user + " .showMsg").css("border","2px solid #e9578c");
-  }
-
-  function anotherStyle(user,name,message){
-    $("#msgContent").append("<div class='another " + user + "'>" + name + message + "</div>");
-    $("." + user).css("color","#3071A9");
-    $("." + user + " .showMsg").css("background-color","#3071A9");
-    $("." + user + " .showMsg").css("border","2px solid #3071A9");
-    $("." + user + " .showMsg").css("color","white");
+  function loginAddEvent(){
+    $("#login").on('click',function(){
+      socket.emit('getUser');
+    });
   }
 
   function addSocketEvent(){
-
     socket.on('open',function(){
       setInterval(function(){
         socket.emit('refresh');
@@ -130,15 +111,6 @@
     }
   }
 
-  function showAlert(msg){
-    var msgDiv = '提示: ' + msg;
-    $("#alertMsg").text(msgDiv);
-    $("#alertMsg").slideDown(1000);
-    setTimeout(function(){
-      $("#alertMsg").slideUp(1000);
-    },5000);
-  }
-
   function logSuccess(userId){
     window.user = userId;
     socket.emit('login',userId);
@@ -149,24 +121,45 @@
     });
   }
 
-  function loginAddEvent(){
-    $("#login").on('click',function(){
-      socket.emit('getUser');
-    });
+  function showAlert(msg){
+    var msgDiv = '提示: ' + msg;
+    $("#alertMsg").text(msgDiv);
+    $("#alertMsg").slideDown(1000);
+    setTimeout(function(){
+      $("#alertMsg").slideUp(1000);
+    },5000);
+  }
+
+  function selfStyle(user,name,message){
+    $("#msgContent").append("<div class='self " + user + "'>" + name + message + "</div>");
+    $("." + user).css("color","#4bb349");
+    $("." + user + " .showMsg").css("background-color","#4bb349");
+    $("." + user + " .showMsg").css("border","2px solid #4bb349");
+    $("." + user + " .showMsg").css("color","white");
+  }
+
+  function systemStyle(user,name,message){
+    $("#msgContent").append("<div class='another " + user + "'>" + name + message + "</div>");
+    $("." + user).css("color","#e9578c");
+    $("." + user + " .showMsg").css("background-color","#e9578c");
+    $("." + user + " .showMsg").css("color","white");
+    $("." + user + " .showMsg").css("border","2px solid #e9578c");
+  }
+
+  function anotherStyle(user,name,message){
+    $("#msgContent").append("<div class='another " + user + "'>" + name + message + "</div>");
+    $("." + user).css("color","#3071A9");
+    $("." + user + " .showMsg").css("background-color","#3071A9");
+    $("." + user + " .showMsg").css("border","2px solid #3071A9");
+    $("." + user + " .showMsg").css("color","white");
   }
 
   function roomAddEvent(){
-
-    for(var i = 1; i < 25; i++){
-      $("#imageStore").append("<img class='faceImage' width='50' height='50' src='face/" + i + ".gif'>");
-    }
-
-    $(".faceImage").on('click',function(){
-      var src = $(this).attr("src");
-      $("#sendInput").val("<img class='sendImage' src='" + src + "'>");
-      $("#sendButton").click();
-      $("#imageStore").fadeOut();
-    });
+    loadFontHtml();
+    loadMusicHtml();
+    loadSettingHtml();
+    loadFaceStore();
+    mobileAutoExit();
 
     $("#sendButton").on('click',function(){
       var msg = $("#sendInput").val().trim();
@@ -238,11 +231,49 @@
       $("#settings").fadeOut();
     });
 
+    $(".container").css("background-image","url(images/13.jpg)");
+    $("button").focus(function(){this.blur();});
+  }
+
+  function mobileAutoExit(){
+    var width = window.innerWidth;
+    var thread = null;
+    thread = setTimeout(function(){
+      alert(1);
+    },10000);
+    if(width < 768){
+      $(window).on("touchend",function(){
+        clearTimeout(thread);
+        thread = setTimeout(function(){
+          alert("由于你长时间无操作，已退出房间。");
+          if($("#closeButton").length !== 0){
+            $("#closeButton").click();
+          }
+        },6000 * 5);
+      });
+    }
+  }
+
+  function loadFaceStore(){
+    for(var i = 1; i < 25; i++){
+      $("#imageStore").append("<img class='faceImage' width='50' height='50' src='face/" + i + ".gif'>");
+    }
+
+    $(".faceImage").on('click',function(){
+      var src = $(this).attr("src");
+      $("#sendInput").val("<img class='sendImage' src='" + src + "'>");
+      $("#sendButton").click();
+      $("#imageStore").fadeOut();
+    });
+  }
+
+  function loadFontHtml(){
     $("#fontSetting").load("fontList.html",function(){
       var fontThread = null;
       var familyThread = null;
       var value = 0;
       var family = "";
+
       $("#fontList a").on('click',function(){
         if(fontThread !== null){
           clearInterval(fontThread);
@@ -254,6 +285,7 @@
           $(".user").css("font-size",value + "px");
         },100);
       });
+
       $("#fontFamily a").on('click',function(){
         if(familyThread !== null){
           clearInterval(familyThread);
@@ -265,35 +297,65 @@
           $(".user").css("font-family",family);
         },100);
       });
+
       $("#colorButton").on('click',function(){
         $("#fontColPicker").fadeToggle();
       });
+
       $("#fontColPicker").colpick({
           flat:true,
           layout:'hex',
           submit:0
       });
+
       setInterval(function(){
         var color = $("#fontColPicker .colpick_hex_field input").val();
         $(".showMsg").css("color","#" + color);
       },10);
       $("button").focus(function(){this.blur();});
     });
+  }
 
+  function loadMusicHtml(){
+    $("#musiceSetting").load("musicList.html",function(){
+      for( var i = 1; i < 3; i++){
+        $("#musicList").append('<span data="' + i + '" class="musicList">歌曲'+ i +'</span>');
+      }
+
+      $(".musicList").on('click',function(){
+        var myAudio = document.getElementById("musicAudio");
+        var src = $(this).attr("data");
+        $(myAudio).attr("src","playMusic/" + src + ".mp3");
+        myAudio.play();
+      });
+
+      $("#pausePlay").on('click',function(){
+        var myAudio = document.getElementById("musicAudio");
+        myAudio.pause();
+      });
+
+      $("button").focus(function(){this.blur();});
+    });
+  }
+
+  function loadSettingHtml(){
     $("#settings").load("setting.html",function(){
       for( var i = 1; i < 14; i++){
         $("#backStore").append('<img width="50" height="50" src="images/' + i + '.jpg">');
       }
       $("#backStore img").css("margin","5px");
+
       $("#backStore img").on('click',function(){
         var src = $(this).attr("src");
         $(".container").css("background-image","url(" + src + ")");
       });
+
       $('#backPicker').colpick({
           flat:true,
           layout:'hex',
           submit:0
       });
+
       $("#submitTheme").on('click',function(){
         var color = $("#backPicker .colpick_hex_field input").val();
         console.log(color);
@@ -304,31 +366,13 @@
         $(".content").css("border","1px solid #" + color);
         $("#settings").fadeOut();
       });
+
       $("#cancelTheme").on('click',function(){
         $("#settings").fadeOut();
       });
+
       $("button").focus(function(){this.blur();});
     });
-
-    $("#musiceSetting").load("musicList.html",function(){
-      for( var i = 1; i < 3; i++){
-        $("#musicList").append('<span data="' + i + '" class="musicList">歌曲'+ i +'</span>');
-      }
-      $(".musicList").on('click',function(){
-        var myAudio = document.getElementById("musicAudio");
-        var src = $(this).attr("data");
-        $(myAudio).attr("src","playMusic/" + src + ".mp3");
-        myAudio.play();
-      });
-      $("#pausePlay").on('click',function(){
-        var myAudio = document.getElementById("musicAudio");
-        myAudio.pause();
-      });
-      $("button").focus(function(){this.blur();});
-    });
-
-    $(".container").css("background-image","url(images/13.jpg)");
-    $("button").focus(function(){this.blur();});
   }
 
   function listenSendText(){

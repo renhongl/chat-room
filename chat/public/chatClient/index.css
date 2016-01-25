@@ -40,10 +40,6 @@
   border:0px solid red;height:25px;width:100%;top:0px;position:absolute;z-index:3;
 }
 
-/*#tools div{
-  color:white;float:left;height:22px;width:25px;text-align:center;margin:0px;padding:0px;
-}*/
-
 #tools span{
   width:25px;display:inline-block;text-align:center;height:20px;line-height:17px;margin-left:5px;color:white;margin-top:2px;
 }
@@ -71,14 +67,6 @@ button:{
 #closeButton{
   width:60px;display:inline-block;right:65px;top:92px;margin-left:5px;height:25px;line-height:3px;
 }
-
-/*#imageButton{
-  width:40px;display:inline-block;margin-left:5px;height:20px;line-height:3px;text-align:center;
-}*/
-
-/*#imageStore{
-  max-width:100%;height:auto;border:1px solid white;position:absolute;z-index:100;left:2px;bottom:120px;background-color:white;border-radius:5px;display:none;
-}*/
 
 .store{
   max-width:99%;height:auto;border:1px solid white;position:absolute;z-index:100;left:2px;bottom:120px;background-color:white;border-radius:5px;display:none;
@@ -153,7 +141,6 @@ button:{
 }
 
 .selfPop{
-  /*margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white white white #4bb349;float:right;*/
     width: 0;
     height: 0;
     border-top: 5px solid transparent;
@@ -164,7 +151,6 @@ button:{
 }
 
 .sysPop{
-  /*margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white #e9578c white white ;float:left;*/
   width: 0;
   height: 0;
   border-top: 5px solid transparent;
@@ -175,7 +161,6 @@ button:{
 }
 
 .anotherPop{
-  /*margin-top:4px;width:0;height:0;border-width:5px;border-style:solid;border-color:white #3071A9 white white;float:left;*/
   width: 0;
   height: 0;
   border-top: 5px solid transparent;
