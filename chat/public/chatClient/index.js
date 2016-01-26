@@ -4,10 +4,11 @@
   var touchThread = null;
   var clickClose = false;
   var offset = 1000;
-  var nameGroup = ['小龙女','杨过','周芷若','赵敏','白娘子','许仙','杨不悔','张三丰','萧峰','段誉','虚竹'];
+  var nameGroup = ['小龙女','杨过','猪八戒','赵敏','孙悟空','许仙','唐僧','张三丰','萧峰','段誉','虚竹'];
   var haveUser = [];
   var userId = "";
   var createTimes = 0;
+  var count = 0;
 
   this.ChatRoom = {};
 
@@ -81,7 +82,7 @@
       if(user === window.user){
         selfStyle(user,name,message);
       }else if(user === "系统消息"){
-        playAudio();
+        systemAudio();
         systemStyle(user,name,message);
       }else{
         playAudio();
@@ -151,6 +152,25 @@
     $("." + user + " .showMsg").css("background-color","#e9578c");
     $("." + user + " .showMsg").css("color","white");
     $("." + user + " .showMsg").css("border","2px solid #e9578c");
+    sysPrompt();
+  }
+
+  function sysPrompt(){
+    if(count >= 3){
+      count = 0;
+      return;
+    }
+    var endColor = $(".title").css("background-color");
+    setTimeout(function(){
+      $(".title").css("background-color","red");
+      $(".title").css("border","1px solid red");
+      setTimeout(function(){
+        $(".title").css("background-color",endColor);
+        $(".title").css("border","1px solid " + endColor);
+        count++;
+        sysPrompt();
+      },200);
+    },200);
   }
 
   function anotherStyle(user,name,message){
@@ -424,6 +444,15 @@
 
   function playAudio(){
     var myAudio = document.getElementById("myAudio");
+    $("#myAudio").attr("src","music/2.wav");
+    if(myAudio !== null){
+      myAudio.play();
+    }
+  }
+
+  function systemAudio(){
+    var myAudio = document.getElementById("myAudio");
+    $("#myAudio").attr("src","music/system.wav");
     if(myAudio !== null){
       myAudio.play();
     }
