@@ -31,6 +31,21 @@
         socket.emit('getUser');
       }
     };
+
+    getLocation();
+
+    function getLocation(){
+      if (navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(showPosition);
+      }else{
+        alert("该浏览器不支持获取地理位置。");
+      }
+    }
+
+    function showPosition(position){
+      alert("Latitude: " + position.coords.latitude +
+      "<br>Longitude: " + position.coords.longitude);
+    }
   }
 
   function addSocketEvent(){
@@ -41,7 +56,7 @@
     });
 
     socket.on('returnUser',function(onlineUser){
-      var temp = onlineUser.join().replace(/,/g," @ ");
+      var temp = onlineUser.join().replace(/,/g,"、");
       $("#test").text("在线: " + temp);
     });
 
