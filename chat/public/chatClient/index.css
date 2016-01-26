@@ -2,12 +2,12 @@
   border-radius:5px 5px 5px 5px;
 }
 .container{
-  border:0px solid gray;margin-top:0px;padding:0px;position:relative;border-radius:5px 5px 5px 5px;
+  border:0px solid gray;margin-top:0px;padding:0px;position:relative;border-radius:0px 0px 0px 0px;
 }
 
 .title{
   border:1px solid #3071A9;height:30px;background-color:#3071A9;border-radius:0px 0px 0px 0px;color:white;line-height:30px;padding-left:10px;overflow:hidden;
-  box-shadow:4px 4px 4px rgba(0,0,0,0.5);position:relative;border-radius:5px 5px 0 0;
+  box-shadow:4px 4px 4px rgba(0,0,0,0.5);position:relative;border-radius:0px 0px 0 0;
 }
 
 #userList{
@@ -19,7 +19,7 @@
 }
 
 .content{
-  height:476px;border:2px solid #3071A9;border-radius:0px 0px 0px 0px;box-shadow:4px 4px 4px rgba(0,0,0,0.5);border-radius:0 0 5px 5px;
+  height:476px;border:2px solid #3071A9;border-radius:0px 0px 0px 0px;box-shadow:4px 4px 4px rgba(0,0,0,0.5);
 }
 
 .loginPage{
