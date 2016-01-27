@@ -9,6 +9,7 @@
   var userId = "";
   var createTimes = 0;
   var count = 0;
+  var map = null;
 
   this.ChatRoom = {};
 
@@ -33,19 +34,19 @@
     };
 
     getLocation();
+  }
 
-    function getLocation(){
-      if (navigator.geolocation){
-        navigator.geolocation.getCurrentPosition(showPosition);
-      }else{
-        alert("该浏览器不支持获取地理位置。");
-      }
+  function getLocation(){
+    if (navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(showPosition);
+    }else{
+      console.log("该浏览器不支持获取地理位置。");
     }
+  }
 
-    function showPosition(position){
-      alert("Latitude: " + position.coords.latitude +
-      "<br>Longitude: " + position.coords.longitude);
-    }
+  function showPosition(position){
+    console.log("Latitude: " + position.coords.latitude +" Longitude: " + position.coords.longitude);
+    window.geometry = [position.coords.latitude,position.coords.longitude];
   }
 
   function addSocketEvent(){
@@ -108,6 +109,9 @@
         offset = offset + 1000;
       }
     });
+
+
+
   }
 
   function autoCreateName(userId){
@@ -137,6 +141,10 @@
   function logSuccess(userId){
     window.user = userId;
     socket.emit('login',userId);
+    var one = {};
+    one.name = userId;
+    one.geo = window.geometry;
+    socket.emit('sendGeo',one);
     $(".content").empty();
     $(".content").load("room.html",function(){
       roomAddEvent();
@@ -184,8 +192,8 @@
         $(".title").css("border","1px solid " + endColor);
         count++;
         sysPrompt();
-      },200);
-    },200);
+      },100);
+    },100);
   }
 
   function anotherStyle(user,name,message){
@@ -202,6 +210,7 @@
     loadSettingHtml();
     loadFaceStore();
     mobileAutoExit();
+    loadMapHtml();
 
     $("#sendButton").on('click',function(){
       var msg = $("#sendInput").val().trim();
@@ -243,6 +252,8 @@
       $("#fontSetting").fadeOut();
       $("#musiceSetting").fadeOut();
       $("#settings").fadeOut();
+      $("#mapDiv").css("z-index","-100");
+      $("#closeMapButton").fadeOut();
     });
 
     $("#fontButton").on('click',function(){
@@ -250,6 +261,8 @@
       $("#fontSetting").fadeToggle();
       $("#musiceSetting").fadeOut();
       $("#settings").fadeOut();
+      $("#mapDiv").css("z-index","-100");
+      $("#closeMapButton").fadeOut();
     });
 
     $("#musicButton").on('click',function(){
@@ -257,6 +270,8 @@
       $("#fontSetting").fadeOut();
       $("#musiceSetting").fadeToggle();
       $("#settings").fadeOut();
+      $("#mapDiv").css("z-index","-100");
+      $("#closeMapButton").fadeOut();
     });
 
     $("#settingButton").on('click',function(){
@@ -264,6 +279,17 @@
       $("#fontSetting").fadeOut();
       $("#musiceSetting").fadeOut();
       $("#settings").fadeToggle();
+      $("#mapDiv").css("z-index","-100");
+      $("#closeMapButton").fadeOut();
+    });
+
+    $("#mapButton").on('click',function(){
+      $("#imageStore").fadeOut();
+      $("#fontSetting").fadeOut();
+      $("#musiceSetting").fadeOut();
+      $("#settings").fadeOut();
+      $("#mapDiv").css("z-index","100");
+      $("#closeMapButton").fadeIn();
     });
 
     $("#sendInput").on('click',function(){
@@ -271,7 +297,11 @@
       $("#fontSetting").fadeOut();
       $("#musiceSetting").fadeOut();
       $("#settings").fadeOut();
+      $("#mapDiv").css("z-index","-100");
+      $("#closeMapButton").fadeOut();
     });
+
+
 
     $(".container").css("background-image","url(images/13.jpg)");
     $("button").focus(function(){this.blur();});
@@ -286,6 +316,8 @@
         console.log("由于你长时间无操作，已退出房间。");
         if($("#closeButton").length !== 0){
           $("#closeButton").click();
+        }else{
+          socket.emit('logout',window.user);
         }
       },6000 * 5);
 
@@ -295,10 +327,38 @@
           console.log("由于你长时间无操作，已退出房间。");
           if($("#closeButton").length !== 0){
             $("#closeButton").click();
+          }else{
+            socket.emit('logout',window.user);
           }
         },6000 * 5);
       });
     }
+  }
+
+  function loadMapHtml(){
+    $("#mapDiv").load("map.html",function(){
+      map = L.map('map',{
+        center : [13,103],
+        zoom : 13
+      });
+      L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(map);
+      $("#closeMapButton").on('click',function(){
+        $("#mapDiv").css("z-index","-100");
+        $("#closeMapButton").fadeOut();
+      });
+      socket.on('newCome',function(oneGroup){
+        var geoGroup = [];
+        $.each(oneGroup,function(i,one){
+          if(one.geo !== undefined){
+            map.setZoom(13);
+            map.setView(one.geo);
+            var marker = L.marker(one.geo).bindPopup(one.name).addTo(map);
+          }
+        });
+      });
+    });
   }
 
   function loadFaceStore(){

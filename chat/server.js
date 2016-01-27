@@ -17,12 +17,18 @@
     var io = require('socket.io').listen(server);
     var onlineUser = [];
     var onlineCount = 0;
+    var oneGroup = [];
     io.on('connection',function(socket){
       console.log("a user connected.");
       socket.emit('open');
 
       socket.on('getUser',function(){
         socket.emit('gotUser',onlineUser);
+      });
+
+      socket.on('sendGeo',function(one){
+        oneGroup.push(one);
+        io.sockets.emit('newCome',oneGroup);
       });
 
       socket.on('refresh',function(){

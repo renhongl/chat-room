@@ -73,7 +73,15 @@ button:{
 }
 
 #settings{
-  max-width:99%;height:99%;border:1px solid white;position:absolute;z-index:100;left:2px;bottom:2px;background-color:white;border-radius:5px;display:none;
+  width:99%;height:99%;border:1px solid white;position:absolute;z-index:101;left:2px;bottom:2px;background-color:white;border-radius:5px;display:none;
+}
+
+#mapDiv{
+  width:99%;height:99%;border:1px solid white;position:absolute;z-index:-100;left:2px;bottom:2px;background-color:white;border-radius:5px;
+}
+
+#closeMapButton{
+  position:absolute;display:none;height:25px;line-height:3px;margin-top:10px;
 }
 
 .faceImage{
@@ -255,8 +263,13 @@ button:{
   height:355px;width:100%;padding:10px;
 }
 
+#mapInstance{
+  height:460px;width:100%;
+}
 
-
+#map{
+  width:100%;height:100%;
+}
 
 
 
