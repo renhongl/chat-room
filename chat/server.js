@@ -53,9 +53,6 @@
       socket.on('message',function(user,msg){
         io.sockets.emit('redirectToUser',user,msg);
       });
-
-
-
     });
   }
 
@@ -69,9 +66,9 @@
 
   function getRequest(){
     app.use(express.static('public'));
+
     app.get('/',function(req,res){
       res.end("welcome,this is chat server.");
     });
   }
-
 })();
