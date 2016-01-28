@@ -10,6 +10,7 @@
   var createTimes = 0;
   var count = 0;
   var map = null;
+  var oneGroup = [];
 
   this.ChatRoom = {};
 
@@ -59,6 +60,10 @@
     socket.on('returnUser',function(onlineUser){
       var temp = onlineUser.join().replace(/,/g,"、");
       $("#test").text("在线: " + temp);
+    });
+
+    socket.on('newCome',function(data){
+      oneGroup = data || [];
     });
 
     socket.on('gotUser',function(onlineUser){
@@ -143,7 +148,7 @@
     socket.emit('login',userId);
     var one = {};
     one.name = userId;
-    one.geo = window.geometry;
+    one.geo = window.geometry || [];
     socket.emit('sendGeo',one);
     $(".content").empty();
     $(".content").load("room.html",function(){
@@ -184,16 +189,10 @@
       return;
     }
     var endColor = $(".title").css("background-color");
-    setTimeout(function(){
-      $(".title").css("background-color","red");
-      $(".title").css("border","1px solid red");
-      setTimeout(function(){
-        $(".title").css("background-color",endColor);
-        $(".title").css("border","1px solid " + endColor);
-        count++;
-        sysPrompt();
-      },100);
-    },100);
+    $(".title").animate({backgroundColor:"red",borderColor:"red"},500);
+    $(".title").animate({backgroundColor:endColor,borderColor:endColor},500);
+    count++;
+    sysPrompt();
   }
 
   function anotherStyle(user,name,message){
@@ -348,12 +347,22 @@
         $("#mapDiv").css("z-index","-100");
         $("#closeMapButton").fadeOut();
       });
-      socket.on('newCome',function(oneGroup){
-        var geoGroup = [];
-        $.each(oneGroup,function(i,one){
-          if(one.geo !== undefined){
+      $.each(oneGroup,function(i,one){
+        if(one.geo !== undefined){
+          if(window.user === one.name){
             map.setZoom(13);
             map.setView(one.geo);
+          }
+          var marker = L.marker(one.geo).bindPopup(one.name).addTo(map);
+        }
+      });
+      socket.on('newCome',function(oneGroup){
+        $.each(oneGroup,function(i,one){
+          if(one.geo !== undefined){
+            if(window.user === one.name){
+              map.setZoom(13);
+              map.setView(one.geo);
+            }
             var marker = L.marker(one.geo).bindPopup(one.name).addTo(map);
           }
         });
