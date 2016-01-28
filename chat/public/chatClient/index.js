@@ -11,10 +11,12 @@
   var count = 0;
   var map = null;
   var oneGroup = [];
+  var layerGroup = L.featureGroup();
 
   this.ChatRoom = {};
 
   ChatRoom.init = function(){
+    getLocation();
     $(".content").load("login.html",function(){
       $("button").focus(function(){this.blur();});
       loginAddEvent();
@@ -33,21 +35,37 @@
         socket.emit('getUser');
       }
     };
-
-    getLocation();
   }
 
   function getLocation(){
     if (navigator.geolocation){
-      navigator.geolocation.getCurrentPosition(showPosition);
+      navigator.geolocation.watchPosition(showPosition,error);
     }else{
       console.log("该浏览器不支持获取地理位置。");
     }
   }
 
   function showPosition(position){
-    console.log("Latitude: " + position.coords.latitude +" Longitude: " + position.coords.longitude);
     window.geometry = [position.coords.latitude,position.coords.longitude];
+    console.log("geometry:",window.geometry);
+    updateGeo();
+  }
+
+  function error(e){
+    console.log("Geolocation error : " + e.code + ":" + e.message);
+  }
+
+  setInterval(function(){
+    updateGeo();
+  },10000);
+
+  function updateGeo(){
+    if(window.user !== undefined && window.user !== ""){
+      var one = {};
+      one.name = window.user;
+      one.geo = window.geometry || [];
+      socket.emit('sendGeo',one);
+    }
   }
 
   function addSocketEvent(){
@@ -63,7 +81,18 @@
     });
 
     socket.on('newCome',function(data){
+      layerGroup.clearLayers();
       oneGroup = data || [];
+      console.log("allPeople:",oneGroup);
+      if(map !== null){
+        $.each(oneGroup,function(i,one){
+          if(one.geo !== undefined){
+            var marker = L.marker(one.geo).bindPopup(one.name);
+            layerGroup.addLayer(marker);
+          }
+        });
+        layerGroup.addTo(map);
+      }
     });
 
     socket.on('gotUser',function(onlineUser){
@@ -114,9 +143,6 @@
         offset = offset + 1000;
       }
     });
-
-
-
   }
 
   function autoCreateName(userId){
@@ -146,10 +172,6 @@
   function logSuccess(userId){
     window.user = userId;
     socket.emit('login',userId);
-    var one = {};
-    one.name = userId;
-    one.geo = window.geometry || [];
-    socket.emit('sendGeo',one);
     $(".content").empty();
     $(".content").load("room.html",function(){
       roomAddEvent();
@@ -300,8 +322,6 @@
       $("#closeMapButton").fadeOut();
     });
 
-
-
     $(".container").css("background-image","url(images/13.jpg)");
     $("button").focus(function(){this.blur();});
   }
@@ -338,7 +358,7 @@
     $("#mapDiv").load("map.html",function(){
       $("button").focus(function(){this.blur();});
       map = L.map('map',{
-        center : [13,103],
+        center : [31.1333,104.4],
         zoom : 13
       });
       L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
@@ -348,27 +368,6 @@
         $("#mapDiv").css("z-index","-100");
         $("#closeMapButton").fadeOut();
       });
-      $.each(oneGroup,function(i,one){
-        if(one.geo !== undefined){
-          if(window.user === one.name){
-            map.setZoom(13);
-            map.setView(one.geo);
-          }
-          var marker = L.marker(one.geo).bindPopup(one.name).addTo(map);
-        }
-      });
-      socket.on('newCome',function(oneGroup){
-        $.each(oneGroup,function(i,one){
-          if(one.geo !== undefined){
-            if(window.user === one.name){
-              map.setZoom(13);
-              map.setView(one.geo);
-            }
-            var marker = L.marker(one.geo).bindPopup(one.name).addTo(map);
-          }
-        });
-      });
-
     });
   }
 

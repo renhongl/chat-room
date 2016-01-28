@@ -27,7 +27,21 @@
       });
 
       socket.on('sendGeo',function(one){
-        oneGroup.push(one);
+        var isHave = false;
+        for(var i = 0; i < oneGroup.length; i++){
+          if(oneGroup[i].name === one.name){
+            isHave = true;
+          }
+        }
+        if(!isHave){
+          oneGroup.push(one);
+        }else{
+          for(var j = 0; j < oneGroup.length; j++){
+            if(oneGroup[j].name === one.name){
+              oneGroup[j].geo = one.geo;
+            }
+          }
+        }
         io.sockets.emit('newCome',oneGroup);
       });
 
@@ -46,6 +60,11 @@
         console.log(user + "logout");
         onlineCount -= 1;
         onlineUser.splice(onlineUser.indexOf(user),1);
+        for(var i = 0; i < oneGroup.length; i++){
+          if(oneGroup[i].name === user){
+            oneGroup.splice(i,1);
+          }
+        }
         console.log(onlineUser);
         io.sockets.emit('redirectToUser',"系统消息",user + " 退出房间");
       });
