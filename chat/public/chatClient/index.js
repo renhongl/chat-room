@@ -336,6 +336,7 @@
 
   function loadMapHtml(){
     $("#mapDiv").load("map.html",function(){
+      $("button").focus(function(){this.blur();});
       map = L.map('map',{
         center : [13,103],
         zoom : 13
@@ -367,6 +368,7 @@
           }
         });
       });
+
     });
   }
 
