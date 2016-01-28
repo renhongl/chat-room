@@ -21,6 +21,7 @@
       $("button").focus(function(){this.blur();});
       loginAddEvent();
       addSocketEvent();
+      updateGeo();
     });
   };
 
@@ -39,6 +40,7 @@
 
   function getLocation(){
     if (navigator.geolocation){
+      //navigator.geolocation.getCurrentPosition(showPosition,error);
       navigator.geolocation.watchPosition(showPosition,error);
     }else{
       console.log("该浏览器不支持获取地理位置。");
@@ -47,17 +49,13 @@
 
   function showPosition(position){
     window.geometry = [position.coords.latitude,position.coords.longitude];
-    console.log("geometry:",window.geometry);
+    console.log("first or change geometry:",window.geometry);
     updateGeo();
   }
 
   function error(e){
     console.log("Geolocation error : " + e.code + ":" + e.message);
   }
-
-  setInterval(function(){
-    updateGeo();
-  },10000);
 
   function updateGeo(){
     if(window.user !== undefined && window.user !== ""){
@@ -86,7 +84,7 @@
       console.log("allPeople:",oneGroup);
       if(map !== null){
         $.each(oneGroup,function(i,one){
-          if(one.geo !== undefined){
+          if(one.geo !== undefined && one.geo.length !== 0){
             var marker = L.marker(one.geo).bindPopup(one.name);
             layerGroup.addLayer(marker);
           }
@@ -171,6 +169,7 @@
 
   function logSuccess(userId){
     window.user = userId;
+    updateGeo();
     socket.emit('login',userId);
     $(".content").empty();
     $(".content").load("room.html",function(){
